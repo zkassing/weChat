@@ -1,0 +1,4 @@
+.bg{background:url("../img/bg.jpg") no-repeat center center; position: fixed; top:0;left: 0; right:0; bottom:0; background-size:100% 100%;z-index: -2}
+.chat{ height:80vh; margin:0 auto; margin-top: 10vh; width:50%; display: flex;}
+.lchat{ flex:1; background: #2e3238;padding: 10px}
+.rchat{ flex:3;}
