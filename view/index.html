@@ -13,10 +13,22 @@
 <div id="login">
     <div class="login">
         <div class="input_group">
-            <span class="inputAddon">
-                <i class="icon iconfont">&#xe60a;</i>
-            </span>
             <input type="text" class="input_control" placeholder="给自己起个好听的名字吧" id="nickname"/>
+            <input type="hidden" id="img-src" value="img/chat1.jpg">
+        </div>
+        <div class="img-group">
+            <img src="img/chat1.jpg" alt="" class="active" width="40px">
+            <img src="img/chat2.jpg" alt="" width="40px">
+            <img src="img/chat3.jpg" alt="" width="40px">
+            <img src="img/chat4.jpg" alt="" width="40px">
+            <img src="img/chat5.jpg" alt="" width="40px">
+        </div>
+        <div class="img-group">
+            <img src="img/chat6.jpg" alt="" width="40px">
+            <img src="img/chat7.jpg" alt="" width="40px">
+            <img src="img/chat8.jpg" alt="" width="40px">
+            <img src="img/chat9.jpg" alt="" width="40px">
+            <img src="img/chat10.jpg" alt="" width="40px">
         </div>
         <div class="btnArea">
             <button class="btn btn_login" id="sendNickName">登录</button>
@@ -27,7 +39,9 @@
     <div class="lchat">
         <div class="owner">
             <div class="owner-info">
-                <div class="owner-head" id="owner-head">♥</div>
+                <div class="owner-head">
+                    <img id="owner-head" class="img" alt="头像" src="" width="40" height="40">
+                </div>
                 <div class="owner-name ellipsis" id="owner-name">未登陆</div>
             </div>
             <input type="text" placeholder="搜索" class="frm_search">
@@ -50,8 +64,6 @@
             <span class="name">选择一个用户来聊天吧</span>
         </div>
         <div class="chat-list" data-user="" data-to="">
-
-
 
             <!--<div class="text-muted text-center">对方已关闭聊天</div>-->
             <div class="text-muted text-center">暂无人聊天</div>

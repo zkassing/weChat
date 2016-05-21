@@ -1,11 +1,5 @@
 *{transition: all 400ms}
-.login{ width:300px;margin: auto}
-.login .input_group{float: left;clear: both;position: relative;width: 100%;border-bottom: 1px solid #dddddd; margin-top:30vh;}
-.login .input_control{background:#fff;border:0;border-radius:0px;width: 100%;padding: 10px;box-sizing: border-box;}
-.login .btn_login{background: rgb(46,204,113);border: none;color: #FFF;width: 100%;padding: 10px;}
-.login .btn_login:active{background-color: #25A259;}
-.login .btnArea{width: 100%;padding: 10px;box-sizing: border-box;}
-.login .btnArea button{width: 100%;margin-top: 20px;}
+
 body{font-family: "Microsoft YaHei UI",Consolas}
 .chat{height:80vh; margin:0 auto; margin-top: 10vh; max-width:1000px; display: flex; -webkit-border-radius:5px; -moz-border-radius:5px; border-radius:5px;}
 .lchat{ padding-bottom: 10px;color: #fff;flex:2; background: #2e3238;border-top-left-radius: 3px;border-bottom-left-radius: 3px;display: flex; flex-direction:column; overflow: hidden;}
@@ -13,12 +7,12 @@ body{font-family: "Microsoft YaHei UI",Consolas}
 .lchat .owner{ order:-10; padding:12px 18px;display: flex;flex-direction: column; border-bottom:1px solid #292C33;}
 .lchat .user{order:1;color:#fff; border-bottom:1px solid #292C33;padding: 12px 18px 11px;overflow: hidden;display: flex;cursor: pointer}
 .lchat .user.active{ background: #3A3F45;}
-.user-head{width: 40px; height:40px; background: #d0e9c6; margin-right:10px;border-radius:3px; color: #000;text-align: center;font-size: 30px; line-height:35px;}
+.user-head{width: 40px; height:40px; margin-right:10px;border-radius:3px;}
 .back{display: none;cursor: pointer}
 .user .user-body{ flex: 3}
 #userList{overflow-y: scroll; margin-right:-18px;}
 .owner-info{display: flex;margin-bottom:20px;}
-.owner-head{width: 40px; height:40px; background: #d0e9c6; margin-right:10px;border-radius:3px; color: #000;text-align: center;font-size: 30px; line-height:35px;}
+.owner-head{width: 40px; height:40px; margin-right:10px;border-radius:3px; }
 .owner .owner-name{ font-size:16px;line-height: 36px; max-width:70%;}
 .frm_search{border:0;border-radius:2px;-moz-border-radius:2px;-webkit-border-radius:2px;background-color:#26292E;color:#fff;padding:10px;font-size:12px}
 .ellipsis{ max-width: 70%; overflow: hidden; white-space: nowrap; text-overflow: ellipsis; }
@@ -56,8 +50,18 @@ body{font-family: "Microsoft YaHei UI",Consolas}
 .message.me .avatar{float:right}
 .message.me .content{overflow:hidden}
 .menu{display: none;float: left;opacity: 0}
+.img-group{display: flex;justify-content:space-between; margin-top:20px;}
+.img-group img{cursor: pointer;border:solid 1px rgba(0,0,0,0)}
+.img-group img.active{ border-color: #f0ad4e;}
 @media (min-width: 500px){
     .bg{background:url("../img/bg.jpg") no-repeat center center; position: fixed; top:0;left: 0; right:0; bottom:0; background-size:100% 100%;z-index: -2}
+    .login{ width:300px;margin: auto}
+    .login .input_group{position: relative;width: 100%;border-bottom: 1px solid #dddddd; margin-top:30vh;}
+    .login .input_control{background:#fff;border:0;border-radius:0px;width: 100%;padding: 10px;box-sizing: border-box;}
+    .login .btn_login{background: rgb(46,204,113);border: none;color: #FFF;width: 100%;padding: 10px;}
+    .login .btn_login:active{background-color: #25A259;}
+    .login .btnArea{width: 100%;padding: 10px;box-sizing: border-box;}
+    .login .btnArea button{width: 100%;margin-top: 20px;}
 }
 @media (max-width: 1000px) {
     .chat{ margin:0; width:100%;height:100vh}
@@ -74,10 +78,11 @@ body{font-family: "Microsoft YaHei UI",Consolas}
     .lchat{position: fixed; top:0; left:0px;bottom: 0;width:100%;z-index: 10}
     .back{display: block}
     .login{width: 100%;height: 100vh;box-sizing: border-box;background: linear-gradient(#ace7ed,#e5d9c3);padding-top: 10vh;}
-    .login .input_group{float: left;clear: both;position: relative;width: 100%;border-bottom: 1px solid #dddddd;}
+    .login .input_group{position: relative;width: 100%;border-bottom: 1px solid #dddddd;}
     .login .input_control{background:#fff;border:0;border-radius:0px;width: 100%;padding: 10px;box-sizing: border-box;}
     .login .btn_login{background: rgb(46,204,113);border: none;color: #FFF;width: 100%;padding: 10px;}
     .login .btn_login:active{background-color: #25A259;}
     .login .btnArea{width: 100%;padding: 10px;box-sizing: border-box;}
     .login .btnArea button{width: 100%;margin-top: 20px;}
+    .img-group{justify-content:space-around;}
 }

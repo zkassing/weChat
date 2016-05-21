@@ -15,6 +15,7 @@ $(function ($) {
     //聊天
     var sendMessage = function () {
         socket.emit('message',{message:$('#message').html(),user:user,to:$('.chat-list').data('to')});
+        $('#message').html("");
     }
     socket.on('pmessage',function (data) {
 
@@ -25,14 +26,14 @@ $(function ($) {
                 }
             });
             $('.chat-list').append('<div class="message me">' +
-                '<div class="owner-head">'+data.user.substr(data.user.length-1,1)+'</div>' +
+                '<div class="owner-head"><img class="img" alt="" src="img/chat1.jpg" width="40" height="40"></div>' +
                 '<div class="bubble bubble_primary right" >' +
                 '<div class="bubble_cont">' +
                 '<div class="plain">' +
                 '<span>'+data.message+'</span>' +
                 '</div></div></div></div>');
             Arr[data.user+data.to]+='<div class="message me">' +
-            '<div class="owner-head">'+data.user.substr(data.user.length-1,1)+'</div>' +
+            '<div class="owner-head"><img class="img" alt="" src="img/chat1.jpg" width="40" height="40"></div>' +
             '<div class="bubble bubble_primary right" >' +
             '<div class="bubble_cont">' +
             '<div class="plain">' +
@@ -46,7 +47,7 @@ $(function ($) {
                     }
                 });
                 $('.chat-list').append('<div class="message you">' +
-                    '<div class="user-head">'+data.to.substr(data.to.length-1,1)+'</div>' +
+                    '<div class="user-head"><img class="img" alt="" src="img/chat1.jpg" width="40" height="40"></div>' +
                     '<div class="bubble bubble_default left" >' +
                     '<div class="bubble_cont">' +
                     '<div class="plain">' +
@@ -64,7 +65,7 @@ $(function ($) {
                     if($(this).find('.user-name').html() == data.user){
                         $(this).find('.messageShow').html(data.message);
                         Arr[data.to+data.user]+='<div class="message you">' +
-                            '<div class="user-head">'+data.to.substr(data.to.length-1,1)+'</div>' +
+                            '<div class="user-head"><img class="img" alt="" src="img/chat1.jpg" width="40" height="40"></div>' +
                             '<div class="bubble bubble_default left" >' +
                             '<div class="bubble_cont">' +
                             '<div class="plain">' +
@@ -77,13 +78,16 @@ $(function ($) {
     });
     $('#sendMessage').on('click',{},sendMessage);
 
+    $('.img-group img').click(function () {
+        $('.img-group img').removeClass('active');
+        $(this).addClass('active');
+        $('#img-src').val($(this).attr('src'));
+    })
     var sendNickName = function () {
-        socket.emit('nickName',$('#nickname').val(),function (data) {
+        socket.emit('nickName',{nick:$('#nickname').val(),src:$('#img-src').val()},function (data) {
             //验证昵称是否存在
             if(data){
                 user = $('#nickname').val();
-            }else if($('#nickname').val() == 'allofpeople'){
-                $('#nickname').after('<span class="text-warning">对不起，该昵称已存在。</span>');
             }else{
                 $('#nickname').after('<span class="text-warning">对不起，该昵称已存在。</span>');
             }
@@ -94,25 +98,22 @@ $(function ($) {
     }
     $('#sendNickName').on("click",{},sendNickName);
     socket.on('owner',function (data) {
-        $('#owner-head').html(data.head);
-        $('#owner-name').html(data.name);
+        $('#owner-head').attr('src',data.src);
+        $('#owner-name').html(data.nick);
     })
+    //生成用户列表
     socket.on('addUser',function (data) {
-        if(data.nicknames.indexOf(user) !== -1){
-            data.nicknames.splice(data.nicknames.indexOf(user),1);
-        }
         if($("#userList").data('type') == 0){
-            var tmpdiv = $('<div id="tmp"></div>')
-            $.each(data.nicknames,function (i) {
-                var userp = $('<div class="user"></div>'),
-                    user_head = $('<div class="user-head">'+data.nicknames[i].substr(data.nicknames[i].length-1,1)+'</div>'),
-                    user_body = $('<div class="user-body"></div>'),
-                    user_name = $('<div class="user-name ellipsis">'+data.nicknames[i]+'</div>'),
-                    user_message = $('<div class="messageShow ellipsis"></div>');
-                user_body.append(user_name).append(user_message);
-                userp.append(user_head).append(user_body);
+            var tmpdiv = $('<div id="tmp"></div>');
+            $.each(data.nicknames,function (name,value) {
+                var userp = '<div class="user">' +
+                    '<div class="user-head"><img width="40" height="40" src="'+value[1]+'"></div>' +
+                    '<div class="user-body">' +
+                    '<div class="user-name ellipsis">'+value[0]+'</div>' +
+                    '<div class="messageShow ellipsis"></div>' +
+                    '</div></div>';
                 tmpdiv.append(userp);
-                Arr[user + data.nicknames[i]] = '';
+                Arr[user + value[0]] = '';
             })
             $('#userList').append(tmpdiv);
             $('#userList').data('type',1)
@@ -120,17 +121,22 @@ $(function ($) {
             if(data.add == user){
                 return;
             }else{
-                var userp = $('<div class="user"></div>'),
-                    user_head = $('<div class="user-head">'+ data.name +'</div>'),
-                    user_body = $('<div class="user-body"></div>'),
-                    user_name = $('<div class="user-name ellipsis">'+data.add+'</div>'),
-                    user_message = $('<div class="messageShow ellipsis"></div>');
-                user_body.append(user_name).append(user_message);
-                userp.append(user_head).append(user_body);
+                var userp = '<div class="user">' +
+                    '<div class="user-head"><img width="40" height="40" src="'+data.src+'"></div>' +
+                    '<div class="user-body">' +
+                    '<div class="user-name ellipsis">'+data.add+'</div>' +
+                    '<div class="messageShow ellipsis"></div>' +
+                    '</div></div>';
                 $('#tmp').append(userp);
                 Arr[user + data.add] = '';
             }
         }
+        $('.user').each(function () {
+            if($(this).find('.user-name').html() == user){
+                $(this).remove();
+            }
+        })
+
     });
     //给点击用户名绑定事件
     $('#userList').on('click','.user',function () {
