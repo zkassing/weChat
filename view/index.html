@@ -4,18 +4,73 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
     <meta charset="UTF-8">
     <title>mChat</title>
-    <link rel="stylesheet" href="plugin/bootstrap.min.css">
+    <link rel="stylesheet" href="plugins/css/bootstrap.min.css">
     <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
 <div class="bg"></div>
-<div class="chat">
-    <div class="lchat">14321432142314</div>
-    <div class="rchat">23421432143214</div>
+
+<div id="login">
+    <div class="login">
+        <div class="input_group">
+            <span class="inputAddon">
+                <i class="icon iconfont">&#xe60a;</i>
+            </span>
+            <input type="text" class="input_control" placeholder="给自己起个好听的名字吧" id="nickname"/>
+        </div>
+        <div class="btnArea">
+            <button class="btn btn_login" id="sendNickName">登录</button>
+        </div>
+    </div>
+</div>
+<div class="chat hidden">
+    <div class="lchat">
+        <div class="owner">
+            <div class="owner-info">
+                <div class="owner-head" id="owner-head">♥</div>
+                <div class="owner-name ellipsis" id="owner-name">未登陆</div>
+            </div>
+            <input type="text" placeholder="搜索" class="frm_search">
+        </div>
+
+        <div id="userList" data-type="0">
+            <!--<div class="user active">-->
+                <!--<div class="user-head">宽</div>-->
+                <!--<div class="user-body">-->
+                    <!--<div class="user-name">张有宽</div>-->
+                    <!--<div class="message">聊天信息</div>-->
+                <!--</div>-->
+            <!--</div>-->
+        </div>
+    </div>
+    <div class="rchat">
+
+        <div class="chat-name">
+            <span class="glyphicon glyphicon-chevron-left pull-left back"></span>
+            <span class="name">选择一个用户来聊天吧</span>
+        </div>
+        <div class="chat-list" data-user="" data-to="">
+
+
+
+            <!--<div class="text-muted text-center">对方已关闭聊天</div>-->
+            <div class="text-muted text-center">暂无人聊天</div>
+        </div>
+        <div class="chat-send hidden">
+            <pre id="message" class="sendMessage" contenteditable="true">
+
+            </pre>
+            <div class="action text-right">
+                <span class="desc ng-scope">按下Ctrl+Enter换行</span>
+                <a class="btn btn_send" href="javascript:void(0);" id="sendMessage">发送</a>
+            </div>
+        </div>
+    </div>
 </div>
 
+<script src="socket.io/socket.io.js"></script>
 <script src="js/jquery-2.2.3.min.js"></script>
-<script src="plugins/bootstrap.min.js"></script>
+<script src="plugins/js/bootstrap.min.js"></script>
 <script src="js/mchat.js"></script>
 </body>
 </html>

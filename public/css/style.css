@@ -1,4 +1,83 @@
-.bg{background:url("../img/bg.jpg") no-repeat center center; position: fixed; top:0;left: 0; right:0; bottom:0; background-size:100% 100%;z-index: -2}
-.chat{ height:80vh; margin:0 auto; margin-top: 10vh; width:50%; display: flex;}
-.lchat{ flex:1; background: #2e3238;padding: 10px}
-.rchat{ flex:3;}
+*{transition: all 400ms}
+.login{ width:300px;margin: auto}
+.login .input_group{float: left;clear: both;position: relative;width: 100%;border-bottom: 1px solid #dddddd; margin-top:30vh;}
+.login .input_control{background:#fff;border:0;border-radius:0px;width: 100%;padding: 10px;box-sizing: border-box;}
+.login .btn_login{background: rgb(46,204,113);border: none;color: #FFF;width: 100%;padding: 10px;}
+.login .btn_login:active{background-color: #25A259;}
+.login .btnArea{width: 100%;padding: 10px;box-sizing: border-box;}
+.login .btnArea button{width: 100%;margin-top: 20px;}
+body{font-family: "Microsoft YaHei UI",Consolas}
+.chat{height:80vh; margin:0 auto; margin-top: 10vh; max-width:1000px; display: flex; -webkit-border-radius:5px; -moz-border-radius:5px; border-radius:5px;}
+.lchat{ padding-bottom: 10px;color: #fff;flex:2; background: #2e3238;border-top-left-radius: 3px;border-bottom-left-radius: 3px;display: flex; flex-direction:column; overflow: hidden;}
+.rchat{ flex:5;border-top-right-radius: 3px;border-bottom-right-radius: 3px; display: flex; background: #eee;flex-direction: column;overflow: hidden}
+.lchat .owner{ order:-10; padding:12px 18px;display: flex;flex-direction: column; border-bottom:1px solid #292C33;}
+.lchat .user{order:1;color:#fff; border-bottom:1px solid #292C33;padding: 12px 18px 11px;overflow: hidden;display: flex;cursor: pointer}
+.lchat .user.active{ background: #3A3F45;}
+.user-head{width: 40px; height:40px; background: #d0e9c6; margin-right:10px;border-radius:3px; color: #000;text-align: center;font-size: 30px; line-height:35px;}
+.back{display: none;cursor: pointer}
+.user .user-body{ flex: 3}
+#userList{overflow-y: scroll; margin-right:-18px;}
+.owner-info{display: flex;margin-bottom:20px;}
+.owner-head{width: 40px; height:40px; background: #d0e9c6; margin-right:10px;border-radius:3px; color: #000;text-align: center;font-size: 30px; line-height:35px;}
+.owner .owner-name{ font-size:16px;line-height: 36px; max-width:70%;}
+.frm_search{border:0;border-radius:2px;-moz-border-radius:2px;-webkit-border-radius:2px;background-color:#26292E;color:#fff;padding:10px;font-size:12px}
+.ellipsis{ max-width: 70%; overflow: hidden; white-space: nowrap; text-overflow: ellipsis; }
+.messageShow{font-size: 12px;line-height: 20px}
+.chat-name{ text-align: center; padding:10px 0; border-bottom: 1px solid #d6d6d6;margin: 0 20px; }
+.chat-list{ flex:5; padding:20px;overflow-y: scroll; margin-right:-18px;}
+.chat-send{ flex:2; padding:10px; border-top:solid 1px #d6d6d6;display: flex;flex-direction: column}
+.sendMessage{width: 100%; height:100%;flex: 4;border:none; background: #eee;}
+.action{flex: 1}
+.btn{display:inline-block;border:1px solid #c1c1c1;border-radius:4px;-moz-border-radius:4px;-webkit-border-radius:4px;padding:3px 20px;font-size:14px}
+.btn_send{background-color:#fff;color:#222;padding-left:30px;padding-right:30px}
+.btn_send:hover{background-color:#f8f8f8}
+.chat .desc{color:#888;font-size:12px;margin-left:10px;margin-right:7px}
+.avatar{width:40px;height:40px;border-radius:2px;-moz-border-radius:2px;-webkit-border-radius:2px;float:left;cursor:pointer}
+.bubble.bubble_default{background-color:#fff}
+.bubble{max-width:500px;min-height:1em;display:inline-block;vertical-align:top;position:relative;text-align:left;font-size:14px;border-radius:3px;-moz-border-radius:3px;-webkit-border-radius:3px;margin:0 10px}
+.bubble:before,.bubble:after{position:absolute;top:14px;border:6px solid transparent;content:" "}
+.bubble.left:before,.bubble.left:after{right:100%}
+.bubble.left:after{border-right-color:#FFF;border-right-width:4px}
+.bubble.right:before,.bubble.right:after{left:100%}
+.bubble.right:after{border-left-color:#FFF}
+.bubble.right:before,.bubble.right:after{left:100%}
+.bubble.right:after{border-left-color:#FFF}
+.bubble.bubble_primary{background-color:#b2e281}
+.bubble.bubble_primary.left:after{border-right-color:#b2e281;border-right-width:4px}
+.bubble.bubble_primary.right:after{border-left-color:#b2e281;border-left-width:4px}
+.bubble.bubble_primary.right.arrow_primary:before{border-left-color:#b2e281;border-left-width:4px}
+.bubble.bubble_primary.right.arrow_primary:after{border-left-color:#fff;border-left-width:4px;margin-left:-2px}
+.bubble_cont{word-wrap:break-word;word-break:break-all;min-height:25px}
+.message{margin-bottom:16px;float:left;width:100%; display: flex;}
+.message.me{flex-direction: row-reverse}
+.bubble{ max-width:80%;}
+.plain{padding:9px;}
+.message.me{float:right;text-align:right;clear:right}
+.message.me .avatar{float:right}
+.message.me .content{overflow:hidden}
+.menu{display: none;float: left;opacity: 0}
+@media (min-width: 500px){
+    .bg{background:url("../img/bg.jpg") no-repeat center center; position: fixed; top:0;left: 0; right:0; bottom:0; background-size:100% 100%;z-index: -2}
+}
+@media (max-width: 1000px) {
+    .chat{ margin:0; width:100%;height:100vh}
+    .lchat{ border-top-left-radius: 0px;border-bottom-left-radius: 0px;}
+    .rchat{ border-top-right-radius: 0px;border-bottom-right-radius: 0px;}
+
+}
+@media (max-width: 660px) {
+    .lchat{ flex:3; border-top-left-radius: 0px;border-bottom-left-radius: 0px;}
+    .rchat{ flex:5; width:100%;border-top-right-radius: 0px;border-bottom-right-radius: 0px; width:100%; height:100vh;}
+    .menu{display: block;opacity: 1}
+}
+@media (max-width: 500px){
+    .lchat{position: fixed; top:0; left:0px;bottom: 0;width:100%;z-index: 10}
+    .back{display: block}
+    .login{width: 100%;height: 100vh;box-sizing: border-box;background: linear-gradient(#ace7ed,#e5d9c3);padding-top: 10vh;}
+    .login .input_group{float: left;clear: both;position: relative;width: 100%;border-bottom: 1px solid #dddddd;}
+    .login .input_control{background:#fff;border:0;border-radius:0px;width: 100%;padding: 10px;box-sizing: border-box;}
+    .login .btn_login{background: rgb(46,204,113);border: none;color: #FFF;width: 100%;padding: 10px;}
+    .login .btn_login:active{background-color: #25A259;}
+    .login .btnArea{width: 100%;padding: 10px;box-sizing: border-box;}
+    .login .btnArea button{width: 100%;margin-top: 20px;}
+}
