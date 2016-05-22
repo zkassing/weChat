@@ -36,7 +36,7 @@ io.on('connection',function (socket) {
     
     //socket客户端断开连接后执行相应操作
     socket.on('disconnect',function () {
-        console.log('ds')
-
+        delete nicknames[socket.nickname];
+        io.emit('leave',socket.nickname);
     });
 });

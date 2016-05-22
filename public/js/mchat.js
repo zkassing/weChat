@@ -4,6 +4,15 @@ var user = '',
     to = '',
     Arr = {};
 $(function ($) {
+    $("#nickname").on('blur',function () {
+        if($('#nickname').val()){
+            $('#sendNickName').removeAttr('disabled')
+        }else{
+            $('#sendNickName').attr('disabled','disabled')
+        }
+    });
+
+
     $('.menu').click(function () {
         $('.lchat').css({left:0})
         $(".masking").fadeIn();
@@ -14,8 +23,14 @@ $(function ($) {
     });
     //聊天
     var sendMessage = function () {
-        socket.emit('message',{message:$('#message').html(),user:user,to:$('.chat-list').data('to')});
-        $('#message').html("");
+        if($('#message').val()==undefined||$('#message').val()==''){
+            $('#message').attr('placeholder','请输入聊天信息');
+            $('#message').blur();
+        }else{
+            socket.emit('message',{message:$('#message').val(),user:user,to:$('.chat-list').data('to')});
+            $('#message').removeAttr('placeholder');
+            $('#message').val("");
+        }
     }
     socket.on('pmessage',function (data) {
 
@@ -75,8 +90,30 @@ $(function ($) {
                 });
             }
         }
+        $('.chat-list').scrollTop(999999);
     });
     $('#sendMessage').on('click',{},sendMessage);
+    $("#message").on('keydown',function (e) {
+        if(e.ctrlKey && e.which == 13 ){
+            $("#sendMessage").click()
+        }
+    });
+
+    $('.frm_search').on('keydown',function () {
+        $('.user').addClass('hidden');
+    })
+    $('.frm_search').on('keyup',function () {
+        if($('.frm_search').val()==''||$('.frm_search').val()==undefined){
+            $('.user').removeClass('hidden');
+        }else{
+            $('.user').each(function (i) {
+                if($(this).find('.user-name').html() == $('.frm_search').val()){
+                    $(this).removeClass('hidden');
+                }
+            })
+        }
+
+    })
 
     $('.img-group img').click(function () {
         $('.img-group img').removeClass('active');
@@ -88,11 +125,12 @@ $(function ($) {
             //验证昵称是否存在
             if(data){
                 user = $('#nickname').val();
+                $('#login').remove();
+                $('.chat').removeClass('hidden');
             }else{
-                $('#nickname').after('<span class="text-warning">对不起，该昵称已存在。</span>');
+                $('#nickname').before('<div class="alert alert-danger" role="alert">对不起，该昵称已存在</div>');
             }
-            $('#login').remove();
-            $('.chat').removeClass('hidden');
+
 
         });
     }
@@ -154,13 +192,11 @@ $(function ($) {
         }
         $('.chat-send').removeClass('hidden');
     });
-
-
     //用户离开
     socket.on('leave',function (data) {
-        $('.user-name').each(function (i) {
-            if($(this).html() == data.name){
-                $(this).parents('.user').remove();
+        $('.user').each(function (i) {
+            if($(this).find('.user-name').html() == data){
+                $(this).remove();
             }
         });
     })

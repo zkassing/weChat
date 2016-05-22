@@ -13,7 +13,7 @@
 <div id="login">
     <div class="login">
         <div class="input_group">
-            <input type="text" class="input_control" placeholder="给自己起个好听的名字吧" id="nickname"/>
+            <input type="text" class="input_control" placeholder="给自己起个好听的名字吧" id="nickname" maxlength="15"/>
             <input type="hidden" id="img-src" value="img/chat1.jpg">
         </div>
         <div class="img-group">
@@ -31,7 +31,7 @@
             <img src="img/chat10.jpg" alt="" width="40px">
         </div>
         <div class="btnArea">
-            <button class="btn btn_login" id="sendNickName">登录</button>
+            <button class="btn btn_login" id="sendNickName" disabled>登录</button>
         </div>
     </div>
 </div>
@@ -69,11 +69,9 @@
             <div class="text-muted text-center">暂无人聊天</div>
         </div>
         <div class="chat-send hidden">
-            <pre id="message" class="sendMessage" contenteditable="true">
-
-            </pre>
+            <textarea id="message" class="sendMessage" ></textarea>
             <div class="action text-right">
-                <span class="desc ng-scope">按下Ctrl+Enter换行</span>
+                <span class="desc ng-scope">按下Ctrl+Enter发送</span>
                 <a class="btn btn_send" href="javascript:void(0);" id="sendMessage">发送</a>
             </div>
         </div>
