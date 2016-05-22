@@ -12,7 +12,6 @@ $(function ($) {
         }
     });
 
-
     $('.menu').click(function () {
         $('.lchat').css({left:0})
         $(".masking").fadeIn();
@@ -33,7 +32,6 @@ $(function ($) {
         }
     }
     socket.on('pmessage',function (data) {
-
         if(user == data.user){
             $('.user').each(function () {
                 if($(this).find('.user-name').html() == data.to){
@@ -41,14 +39,14 @@ $(function ($) {
                 }
             });
             $('.chat-list').append('<div class="message me">' +
-                '<div class="owner-head"><img class="img" alt="" src="img/chat1.jpg" width="40" height="40"></div>' +
+                '<div class="owner-head"><img class="img" alt="" src="'+$('#owner-head').attr('src')+'" width="40" height="40"></div>' +
                 '<div class="bubble bubble_primary right" >' +
                 '<div class="bubble_cont">' +
                 '<div class="plain">' +
                 '<span>'+data.message+'</span>' +
                 '</div></div></div></div>');
             Arr[data.user+data.to]+='<div class="message me">' +
-            '<div class="owner-head"><img class="img" alt="" src="img/chat1.jpg" width="40" height="40"></div>' +
+            '<div class="owner-head"><img class="img" alt="" src="'+$('#owner-head').attr('src')+'" width="40" height="40"></div>' +
             '<div class="bubble bubble_primary right" >' +
             '<div class="bubble_cont">' +
             '<div class="plain">' +
@@ -62,14 +60,14 @@ $(function ($) {
                     }
                 });
                 $('.chat-list').append('<div class="message you">' +
-                    '<div class="user-head"><img class="img" alt="" src="img/chat1.jpg" width="40" height="40"></div>' +
+                    '<div class="user-head"><img class="img" alt="" src="'+$('.user.active img').attr('src')+'" width="40" height="40"></div>' +
                     '<div class="bubble bubble_default left" >' +
                     '<div class="bubble_cont">' +
                     '<div class="plain">' +
                     '<span>'+data.message+'</span>' +
                     '</div></div></div></div>')
                 Arr[data.to+data.user]+='<div class="message you">' +
-                    '<div class="user-head">'+data.to.substr(data.to.length-1,1)+'</div>' +
+                    '<div class="user-head"><img class="img" alt="" src="'+$('.user.active img').attr('src')+'" width="40" height="40"></div>' +
                     '<div class="bubble bubble_default left" >' +
                     '<div class="bubble_cont">' +
                     '<div class="plain">' +
@@ -80,7 +78,7 @@ $(function ($) {
                     if($(this).find('.user-name').html() == data.user){
                         $(this).find('.messageShow').html(data.message);
                         Arr[data.to+data.user]+='<div class="message you">' +
-                            '<div class="user-head"><img class="img" alt="" src="img/chat1.jpg" width="40" height="40"></div>' +
+                            '<div class="user-head"><img class="img" alt="" src="'+$(this).find('img').attr('src')+'" width="40" height="40"></div>' +
                             '<div class="bubble bubble_default left" >' +
                             '<div class="bubble_cont">' +
                             '<div class="plain">' +
