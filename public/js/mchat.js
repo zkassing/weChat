@@ -97,18 +97,15 @@ $(function ($) {
         }
     });
 
-    $('.frm_search').on('keydown',function () {
+    $('.frm_search').keydown(function () {
         $('.user').addClass('hidden');
-    })
-    $('.frm_search').on('keyup',function () {
+    });
+    $('.frm_search').keyup(function () {
+        var index = $('.frm_search').val();
         if($('.frm_search').val()==''||$('.frm_search').val()==undefined){
             $('.user').removeClass('hidden');
         }else{
-            $('.user').each(function (i) {
-                if($(this).find('.user-name').html() == $('.frm_search').val()){
-                    $(this).removeClass('hidden');
-                }
-            })
+            $(".user-name:contains('"+index+"')").parents('.user').removeClass('hidden');
         }
 
     })
