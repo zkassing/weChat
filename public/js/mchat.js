@@ -99,8 +99,7 @@ $(function ($) {
 
     $('.frm_search').keydown(function () {
         $('.user').addClass('hidden');
-    });
-    $('.frm_search').keyup(function () {
+    }).keyup(function () {
         var index = $('.frm_search').val();
         if($('.frm_search').val()==''||$('.frm_search').val()==undefined){
             $('.user').removeClass('hidden');
