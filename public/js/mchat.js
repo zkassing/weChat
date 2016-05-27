@@ -186,8 +186,13 @@ $(function ($) {
         }
         $('.chat-send').removeClass('hidden');
     });
-    //图片上传
 
+    //创建压缩图片用的canvas
+    var canvas = document.createElement("canvas");
+    var ctx = canvas.getContext('2d');
+    var maxsize = 300 * 1024;
+
+    //图片上传
     $('#img-send').change(readFile);
     function readFile(){
         var file = this.files[0];
@@ -198,7 +203,19 @@ $(function ($) {
         var reader = new FileReader();
         reader.readAsDataURL(file);
         reader.onload = function(e){
-            socket.emit('img',{src:this.result,user:user,to:$('.chat-list').data('to')})
+            console.log(file)
+            var img = new Image,
+                width = 450,    //图片resize宽度
+                quality = 0.6,  //图像质量
+                canvas = document.createElement("canvas"),
+                drawer = canvas.getContext("2d");
+            img.src = this.result;
+            canvas.width = width;
+            canvas.height = width * (img.height / img.width);
+            drawer.drawImage(img, 0, 0, canvas.width, canvas.height);
+            img.src = canvas.toDataURL("image/jpeg", quality);
+
+            socket.emit('img',{src:img.src,user:user,to:$('.chat-list').data('to')})
         }
     }
 
