@@ -187,6 +187,84 @@ $(function ($) {
         }
         $('.chat-send').removeClass('hidden');
     });
+    //图片上传
+
+    $('#img-send').change(readFile);
+    function readFile(){
+        var file = this.files[0];
+        if(!/image\/\w+/.test(file.type)){
+            alert("文件必须为图片！");
+            return false;
+        }
+        var reader = new FileReader();
+        reader.readAsDataURL(file);
+        reader.onload = function(e){
+            socket.emit('img',{src:this.result,user:user,to:$('.chat-list').data('to')})
+        }
+    }
+
+    socket.on('pimg',function (data) {
+        if (user == data.user) {
+            $('.user').each(function () {
+                if ($(this).find('.user-name').html() == data.to) {
+                    $(this).find('.messageShow').html('[图片]');
+                }
+            });
+            $('.chat-list').append('<div class="message me">' +
+                '<div class="owner-head"><img class="img" alt="" src="' + $('#owner-head').attr('src') + '" width="40" height="40"></div>' +
+                '<div class="bubble bubble_primary right" >' +
+                '<div class="bubble_cont">' +
+                '<div class="plain">' +
+                '<img src="' + data.src + '" alt="" width=100%>' +
+                '</div></div></div></div>');
+            Arr[data.user + data.to] += '<div class="message me">' +
+                '<div class="owner-head"><img class="img" alt="" src="' + $('#owner-head').attr('src') + '" width="40" height="40"></div>' +
+                '<div class="bubble bubble_primary right" >' +
+                '<div class="bubble_cont">' +
+                '<div class="plain">' +
+                '<img src="' + data.src + '" alt="" width="100%">' +
+                '</div></div></div></div>';
+        } else {
+            if ($('.chat-list').data('to') == data.user) {
+                $('.user').each(function () {
+                    if ($(this).find('.user-name').html() == data.user) {
+                        $(this).find('.messageShow').html('[图片]');
+                    }
+                });
+                $('.chat-list').append('<div class="message you">' +
+                    '<div class="user-head"><img class="img" alt="" src="' + $('.user.active img').attr('src') + '" width="40" height="40"></div>' +
+                    '<div class="bubble bubble_default left" >' +
+                    '<div class="bubble_cont">' +
+                    '<div class="plain">' +
+                    '<img src="' + data.src + '" alt="" width=100%>' +
+                    '</div></div></div></div>')
+                Arr[data.to + data.user] += '<div class="message you">' +
+                    '<div class="user-head"><img class="img" alt="" src="' + $('.user.active img').attr('src') + '" width="40" height="40"></div>' +
+                    '<div class="bubble bubble_default left" >' +
+                    '<div class="bubble_cont">' +
+                    '<div class="plain">' +
+                    '<img src="' + data.src + '" alt="" width="100%">' +
+                    '</div></div></div></div>';
+            } else {
+                $('.user').each(function () {
+                    if ($(this).find('.user-name').html() == data.user) {
+                        $(this).find('.messageShow').html('[图片]');
+                        Arr[data.to + data.user] += '<div class="message you">' +
+                            '<div class="user-head"><img class="img" alt="" src="' + $(this).find('img').attr('src') + '" width="40" height="40"></div>' +
+                            '<div class="bubble bubble_default left" >' +
+                            '<div class="bubble_cont">' +
+                            '<div class="plain">' +
+                            '<img src="' + data.src + '" alt="" width=100%>' +
+                            '</div></div></div></div>';
+                    }
+                });
+            }
+        }
+        $('.chat-list').scrollTop(999999);
+    });
+    $('#img-get').click(function () {
+        $('#img-send').click();
+    })
     //用户离开
     socket.on('leave',function (data) {
         $('.user').each(function (i) {

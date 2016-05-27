@@ -58,7 +58,6 @@
         </div>
     </div>
     <div class="rchat">
-
         <div class="chat-name">
             <span class="glyphicon glyphicon-chevron-left pull-left back"></span>
             <span class="name">选择一个用户来聊天吧</span>
@@ -71,6 +70,8 @@
         <div class="chat-send hidden">
             <textarea id="message" class="sendMessage" ></textarea>
             <div class="action text-right">
+                <input type="file" id="img-send" class="hidden">
+                <button class="btn btn-default" id="img-get"><span class="glyphicon glyphicon-picture"></span></button>
                 <span class="desc ng-scope">按下Ctrl+Enter发送</span>
                 <a class="btn btn_send" href="javascript:void(0);" id="sendMessage">发送</a>
             </div>

@@ -33,7 +33,13 @@ io.on('connection',function (socket) {
         usockets[data.to].emit('pmessage',data);
         usockets[data.user].emit('pmessage',data);
     })
-    
+    //接受图片src
+    socket.on('img',function (data) {
+        console.log(data);
+        usockets[data.to].emit('pimg',data);
+        usockets[data.user].emit('pimg',data);
+    })
+
     //socket客户端断开连接后执行相应操作
     socket.on('disconnect',function () {
         delete nicknames[socket.nickname];
