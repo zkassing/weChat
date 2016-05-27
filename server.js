@@ -35,10 +35,10 @@ io.on('connection',function (socket) {
     })
     //接受图片src
     socket.on('img',function (data) {
-        console.log(data.src)
+        console.log('1',data.src);
         usockets[data.to].emit('pimg',data);
         usockets[data.user].emit('pimg',data);
-    })
+    });
 
     //socket客户端断开连接后执行相应操作
     socket.on('disconnect',function () {
