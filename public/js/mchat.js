@@ -205,7 +205,7 @@ $(function ($) {
         reader.onload = function(e){
             console.log($('#img-send'))
             var img = new Image,
-                width = 1800,    //图片resize宽度
+                width = 900,    //图片resize宽度
                 quality = 0.9,  //图像质量
                 canvas = document.createElement("canvas"),
                 drawer = canvas.getContext("2d");
