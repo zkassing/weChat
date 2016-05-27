@@ -102,5 +102,5 @@ body{font-family: "Microsoft YaHei UI",Consolas}
     .img-group{justify-content:space-around;}
     .user-name{font-size: 16px}
     .bubble{ max-width:50%;}
-
+    #img-get{display: none}
 }

@@ -35,7 +35,6 @@ io.on('connection',function (socket) {
     })
     //接受图片src
     socket.on('img',function (data) {
-        console.log(data.src);
         usockets[data.to].emit('pimg',data);
         usockets[data.user].emit('pimg',data);
     });

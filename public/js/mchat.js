@@ -203,10 +203,10 @@ $(function ($) {
         var reader = new FileReader();
         reader.readAsDataURL(file);
         reader.onload = function(e){
-            console.log(file)
+            console.log($('#img-send'))
             var img = new Image,
-                width = 450,    //图片resize宽度
-                quality = 0.6,  //图像质量
+                width = 1800,    //图片resize宽度
+                quality = 0.9,  //图像质量
                 canvas = document.createElement("canvas"),
                 drawer = canvas.getContext("2d");
             img.src = this.result;
@@ -214,7 +214,6 @@ $(function ($) {
             canvas.height = width * (img.height / img.width);
             drawer.drawImage(img, 0, 0, canvas.width, canvas.height);
             img.src = canvas.toDataURL("image/jpeg", quality);
-
             socket.emit('img',{src:img.src,user:user,to:$('.chat-list').data('to')})
         }
     }
